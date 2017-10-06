@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'miso-buddy.gemspec'
+    - 'Gemfile'
+    - 'Rakefile'
+
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - 'lib/models/console_app.rb'
+
+Metrics/MethodLength:
+  Enabled: true
+  Exclude:
+    - 'lib/models/console_app.rb'

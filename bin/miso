@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH << 'lib'
+
+require 'miso_buddy/miso_buddy.rb'
+run

@@ -1,0 +1,140 @@
+peter-notes(1) -- manage your notes from the terminal
+=============================================
+
+## SYNOPSIS
+
+`notes` [<FILE-GLOB>] <br>
+`notes` `-f`|`--find` <FILE-GLOB> <br>
+`notes` `-l`|`--list` [<PATH>] <br>
+`notes` `-n`|`--new` <PATH> <br>
+`notes` `-s`|`--search` <REGEX> <br>
+
+## DESCRIPTION
+
+Manage your notes from the console.
+
+If you're like me, you spend most of your computing time in a terminal, you have a text-editor set up just to your liking, and you wish you could use it for everything. Naturally, when it comes time to ditch your paper note-pad, you refuse to to use the more popular gui-driven apps and want to find a way to use your editor instead.
+
+But when you start looking for a terminal-based notes framework (or plugin for your editor) you're blinded by crazy features and unwilling to learn a new tool. You've also already started keeping your notes in some text files and don't want to have to start over.
+
+Anyway, I went through the same thing and made this this lightweight tool (originally from some aliases in my bashrc) to do what I wanted it to do, which isn't a lot. But, like ruby, it has a nice interface, and it'll stay out of the way. That means you can choose where you keep your notes, how you organize them, how you track them (if you do), and what editor you use to write them. So if you already have your own notes, you can just point `peter-notes` at them and start using worlds simplest (and coolest) notes-manager.
+
+## OPTIONS
+
+These options provide some extra utility beyond simply opening notes
+for editing.
+
+  * `-f`, `--find FILE-GLOB`:
+  Seach for notes that match the specified `FILE-GLOB`. This one's running [find](http://linuxcommand.org/man_pages/find1.html) -- `find YOUR-NOTES-DIR -name FILE-GLOB`. It's a little more than that though, this will be fuzzy in that you can add some path info to your glob. For example, if you ran `notes --find "projects/*"` (or `notes --find "pro/*"`), you'd get back both `projects/python/jarbs.txt` and `projects/ruby/peter_notes.txt`. So it's better than just find. A little.
+
+  * `-l`, `--list [PATH]`:
+  List all notes or, if a `PATH` is specified, list notes within the specified path. Bet you thought this was running `ls -R`, well it's actually running [tree](http://linuxcommand.org/man_pages/tree1.html) because it's much cooler -- `tree YOUR-NOTES-DIR/PATH`. If you have strong feelings against `tree`, check out the preferences option for `lister`.
+
+  * `-n`, `--new PATH`:
+  Create a new note at the specified `PATH`, making any directories in-between, and open it. If you don't give a file-type extension, `peter-notes` will use the `extension` value from your preferences (below), ex: `notes --new path/to/my_note` will make `~/Notes/path/to/my_note.txt` (with default preferences). If you do specify a file-type extension, you'll create a note with that extension -- they don't all have to be the same! :astonished:
+
+  - `-s`, `--search REGEX`:
+  **Search within notes for text matching the specified `REGEX`**, ex: `notes --search ".*TODO.*"`. This isn't magic, it's just [grep](http://linuxcommand.org/man_pages/grep1.html). Specifically, it's running `grep -r YOUR-NOTES-DIR -e REGEX`. If you don't conform to to society's colored-grep, check out the preferences option for `searcher`.
+
+
+## EXAMPLES
+
+`notes`. Yeah.
+
+But you can do more!
+
+Lets assume you have the following notes:
+
+    /Users/peter/Notes/
+    |-- projects
+    |   |-- python
+    |   |   +-- jarbs.txt
+    |   +-- ruby
+    |       +-- peter_notes.txt
+    +-- other
+        +-- motorcycle.txt
+
+Most of the time you just want to open them. To do that, type `notes`. You can specify your text editor and where your notes are in `~/peter-notes.yaml` (see PREFERENCES below). This will basically `cd` into your notes and open them all with `YOUR-EDITOR ./`. Some editors don't super work when you open a directory, but I use vim with [NerdTree](https://github.com/scrooloose/nerdtree) and I'm sure other editors have similar plugins.
+
+If you want to open a specific note, you can pass in a `file-glob` to specify which one. If you think a file glob is what happens when you spill coffee on your computer, just check this out [this description](http://tldp.org/LDP/abs/html/globbingref.html) (hint, you use it in bash a lot, like, when you `ls *.rb`).
+
+Lets say you want to open `other/motorcycle.txt`. You could run `notes "other/motorcycle.txt"`, but that's kind of lame, so you could also type `notes "motorcycle"`, or even `notes "moto*"`. If you're feeling extra crazy, you could get away with `m*` here. Basically if you pass a glob in, `peter-notes` will just take the first match from `--find` (see OPTIONS above) and open that. If you wanted to open all notes under `projects/` you could also use this same idea and run `notes "projects"`.
+
+The close observer will have noticed that I'm leaving out `.txt` in most of my commands. That's not  because `peter-notes` requires `.txt` files. In fact, you can use markdown or whatever kind of files you want, but `peter-notes` will totally ignore file extensions unless you provide one. If you plan on keeping most of your notes in some file-extension other than `.txt`, just add a line to your preferences file (below), but it really only effects `--new`.
+
+Thats like what 90% of what youll ever need and no crazy macros or flags to memorize. Not bad right? Well not all flags are bad, in fact, you also get some super-helpful optional ones for the other 10%, just look above at the OPTIONS section.
+
+Oh yeah, make sure your terminal has `grep`, `find`, and `tree`. It should, but depends on how crazy your 'gear' is.
+
+## PREFERENCES
+
+Preferences are saved in '~/.peter-notes.yml'. There are just 2
+options that you can set:
+
+    editor:
+        The editor of your choice. This value will get passed to bash so make sure you use the exact name your terminal will understand.
+
+        Possible Values:
+            [vim, subl, atom, emacs, nano, ...] (more?)
+            I haven't tested others but I know they're out there.
+
+        Default Value: vim
+
+    notes_dir:
+        The home of your notes. This is where `peter-notes` will look for them.
+
+        Possible Values:
+            Any valid + existing dorectory path.
+            I use ~/GoogleDrive/Notes because I track mine in google drive (OverGrive for linux).
+
+        Default Value:
+            ~/Notes
+
+    extension:
+        The default file-type extension for your notes.
+
+        Possible Values:
+            [txt, md, yml, json, html, rb, ...]
+            Anything your editor can understand that's a valid file extension.
+
+        Default Value:
+            txt
+
+    lister:
+        The shell command to run for `--list`. Note the interpolated
+        value `path`.
+
+        Possible Values:
+            Whatever floats your boat.
+            You could use `ls "%{path}"`, `"ls -lR "%{path}"`, or whatever.
+
+        Default Value:
+            tree "%{path}"
+
+    searcher:
+        The shell command to run for `--search`. Note the interpolated values `notes_dir` and `regex`.
+
+        Possible Values:
+            Also whatever floats your boat.
+            Personally I use `ag "%{regex}" "%{notes_dir}"` because [ag is awesome](https://github.com/ggreer/the_silver_searcher). If you hate regex (you know who you are) adding `-Q` to that `ag` option is a great way to just do simple pure-string searches.
+
+        Default Value:
+            grep --color=always -r "%{notes_dir}" -e "%{regex}"
+
+That's [yaml](http://www.yaml.org/start.html) so it should look like this:
+
+    editor: vim
+    notes_dir: ~/Notes
+    extension: txt
+
+## AUTHORS
+
+Peter Fonseca <peter.nfonseca@gmail.com>
+
+## SEE ALSO
+
+This tool runs on top of a few very useful bash utilities and relies
+on terminal-accessible text-editors. It was also written in a
+fantastic language called ruby.
+
+bash(1), grep(1), find(1), tree(1), vim(1), ruby(1)
