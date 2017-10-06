@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
+require 'mvc/message_views'
+
 # Base controller class
 class Controller
   def initialize(input)
     @input = input
-    @messages = []
-    collect_messages
   end
 
   def message
-    @messages.sample
-  end
-
-  def response_class
-    self.class.name.split('Controller')[0] + 'Response'
+    find_message_view.message
   end
 
   private
 
-  def collect_messages
-    @messages += simple_messages
+  def find_message_view
+    MessageViews.const_get(message_view_name).new(@input)
+  end
+
+  def message_view_name
+    self.class.name.split('Controller')[0] + 'MessageView'
   end
 end
