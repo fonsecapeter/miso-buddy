@@ -36,7 +36,7 @@ class MisoApp
   private
 
   def miso_gets
-    input = Readline.readline(@prompt)
+    input = Readline.readline(@prompt, true)
     log(input)
     input
   end
