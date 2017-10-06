@@ -5,6 +5,7 @@ require 'readline'
 require 'config/console_app'
 require 'miso_buddy/version'
 require 'miso_router'
+require 'controllers/greet_controller'
 
 # Main App loop with i/o
 class MisoApp
@@ -15,10 +16,11 @@ class MisoApp
     @preferences = prefs
     @prompt = ' > '.colorize(prefs.prompt_color)
     @flipped_prompt = ' < '.colorize(prefs.prompt_color)
-    @router = MisoRouter.new
+    @router = MisoRouter.new(prefs)
   end
 
   def on_run
+    greet
     loop do
       input = miso_gets
       controller = @router.find_route(input)
@@ -50,5 +52,12 @@ class MisoApp
     print "\033[K"  # clear line
     $stdout.flush
     puts("#{@flipped_prompt}#{input}")
+  end
+
+  def greet
+    greet_controller1 = Greet1Controller.new(@preferences, '')
+    miso_puts(greet_controller1.message)
+    greet_controller2 = Greet2Controller.new(@preferences, '')
+    miso_puts(greet_controller2.message)
   end
 end

@@ -10,6 +10,7 @@ RSpec.describe Preferences do
   let (:prefs_dict) do {
     miso_color: miso_color,
     prompt_color: prompt_color,
+    user_name: 'buddy'
   } end
 
   describe '#initialize' do

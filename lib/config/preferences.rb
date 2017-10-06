@@ -11,6 +11,7 @@ class Preferences
   @@defaults = {
     miso_color: :light_red,
     prompt_color: :light_yellow,
+    user_name: 'buddy'
   }
   @@prefs_file = File.expand_path('~/.miso-buddy.yml')
 
@@ -64,8 +65,14 @@ class Preferences
         prefs = @@defaults
       end
     end
-    prefs = prefs.each { |key, val| prefs[key] = val.to_sym }
+    prefs = prefs.each do |key, val|
+      prefs[key] = val.to_sym if should_be_sym?(key)
+    end
     merged_prefs = @@defaults.merge(prefs)
     return merged_prefs
+  end
+
+  def should_be_sym?(key)
+    %w[miso_color prompt_color].include?(key)
   end
 end

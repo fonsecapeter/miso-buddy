@@ -13,3 +13,11 @@ Metrics/MethodLength:
   Enabled: true
   Exclude:
     - 'lib/models/console_app.rb'
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - 'lib/views/**/*_message_view.rb'

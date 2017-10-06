@@ -7,7 +7,8 @@ require 'mvc/base/route'
 class Router
   FALLBACK = :Fallback
 
-  def initialize
+  def initialize(prefs)
+    @preferences = prefs
     @_routes = []
     route FALLBACK, []
     routes
@@ -33,7 +34,7 @@ class Router
   #   - instantiated controller
   def find_route(input)
     controller_name = match(input)
-    Controllers.const_get(controller_name).new(input)
+    Controllers.const_get(controller_name).new(@preferences, input)
   end
 
   private
