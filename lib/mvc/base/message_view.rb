@@ -13,14 +13,35 @@ class MessageView
     @_messages.sample
   end
 
+  def messages
+    []
+  end
+
+  def morning_messages
+    []
+  end
+
+  def afternoon_messages
+    []
+  end
+
+  def evening_messages
+    []
+  end
+
+  def night_messages
+    []
+  end
+
   private
 
   def collect_messages
-    @_messages += interpolated_messages
+    @_messages += interpolated(messages)
+    @_messages += interpolated(time_based_messages)
   end
 
-  def interpolated_messages
-    messages.map do |msg|
+  def interpolated(msgs)
+    msgs.map do |msg|
       msg % {
         user_name: generate_user_name,
         explative: generate_explative,
@@ -30,7 +51,7 @@ class MessageView
   end
 
   def generate_user_name
-    (%w[buddy homie friend bruh] + [@preferences.user_name]).sample
+    (%w[buddy homie friend bruh] << @preferences.user_name).sample
   end
 
   def generate_explative
@@ -41,5 +62,18 @@ class MessageView
     skipping = [true, false].sample
     return %w[fl*pping f*dging].sample unless skipping
     "\b"
+  end
+
+  def time_based_messages
+    case Time.now.hour
+    when 5...12
+      morning_messages
+    when 12...16
+      afternoon_messages
+    when 16...20
+      evening_messages
+    else
+      night_messages
+    end
   end
 end
