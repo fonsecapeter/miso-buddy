@@ -27,6 +27,16 @@ Style/StringLiterals:
   Exclude:
     - 'lib/views/**/*_message_view.rb'
 
+Layout/IndentArray:
+  Enabled: true
+  Exclude:
+    - 'lib/views/**/*_message_view.rb'
+
+Metrics/MethodLength:
+  Enabled: true
+  Exclude:
+    - 'lib/views/**/*_message_view.rb'
+
 Style/YodaCondition:
   Enabled: true
   Exclude:

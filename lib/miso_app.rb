@@ -5,7 +5,7 @@ require 'readline'
 require 'config/console_app'
 require 'miso_buddy/version'
 require 'miso_router'
-require 'controllers/greet_controller'
+require 'controllers/routeless/greet_controller'
 
 # Main App loop with i/o
 class MisoApp
