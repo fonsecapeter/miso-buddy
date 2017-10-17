@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-ronn man/miso-buddy.7.ronn

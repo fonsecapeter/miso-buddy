@@ -1,17 +1,12 @@
-/.bundle/
-/.yardoc
-/Gemfile.lock
-/_yardoc/
-/coverage/
 /doc/
-/pkg/
-/spec/reports/
-/tmp/
+/lib/
+/bin/
+/.shards/
 
-# rspec failure tracking
-.rspec_status
+# Libraries don't need dependency lock
+# Dependencies will be locked in application that uses them
+/shard.lock
 
-*~
-*.swp
-*.swo
+.swp
+.DS_Store
 tags

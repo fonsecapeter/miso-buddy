@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-version=`bin/miso --version`
-git tag -a "v${version}" -m "Version ${version}" $@ && git push origin "v${version}"
