@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+make
+readonly version=`bin/miso --version`
+echo "$(tput setaf 15)Tagging $(tput setaf 9)v${version}$(tput setaf 15)...$(tput sgr0)"
+git tag -a "v${version}" -m "Version ${version}" $@ && git push origin "v${version}"

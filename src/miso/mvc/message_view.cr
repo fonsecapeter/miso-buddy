@@ -45,7 +45,9 @@ abstract class MessageView
   end
 
   private def generate_user_name
-    (%w[buddy homie friend bruh amigo queen kimosabe] << @prefs["user_name"]).sample
+    (%w[
+      buddy homie friend bruh amigo queen kimosabe squire
+    ] << @prefs["user_name"]).sample
   end
 
   private def generate_explative

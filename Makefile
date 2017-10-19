@@ -16,4 +16,7 @@ test:
 clean:
 	@rm $(LOCAL_EXE)
 
-.PHONY: build run test clean
+tag:
+	@bin/tag
+
+.PHONY: build run test clean tag
