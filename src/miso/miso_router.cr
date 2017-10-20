@@ -2,7 +2,6 @@ require "./mvc/router"
 
 class MisoRouter < Router
   def routes
-    route Quit, %w[quit exit bye later peace]
     route Status, [
       "sup",
       "status",
@@ -10,5 +9,7 @@ class MisoRouter < Router
       "you doing",
       "you feeling"
     ]
+    route WolframAlpha, %w[?]
+    route Quit, %w[quit exit bye later peace]
   end
 end

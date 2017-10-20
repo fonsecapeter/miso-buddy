@@ -9,7 +9,7 @@ bin/miso
 # Dependencies will be locked in application that uses them
 /shard.lock
 
-.swp
-.swo
+*.swp
+*.swo
 .DS_Store
 tags

@@ -1,6 +1,11 @@
 # Base Message View Class
 abstract class MessageView
-  def initialize(@prefs : Preferences, @input : String)
+  @context : Hash(String, String)
+  def initialize(
+    @prefs : Preferences,
+    @input : String,
+    @context = {} of String => String
+  )
     @_messages = [] of String
     collect_messages
   end
@@ -39,7 +44,8 @@ abstract class MessageView
       msg % {
         user_name: generate_user_name,
         explative: generate_explative,
-        explativing: generate_explativing
+        explativing: generate_explativing,
+        explatived: generate_explatived
       }
     end
   end
@@ -58,6 +64,10 @@ abstract class MessageView
     skipping = [true, false].sample
     return %w[fl*pping f*dging].sample unless skipping
     '\b'
+  end
+
+  private def generate_explatived
+    %w[fl*pped f*dged b*rked].sample
   end
 
   private def time_based_messages

@@ -22,7 +22,8 @@ COLOR_PREFS = ["miso_color", "prompt_color"]
 DEFAULT_PREFS = {
   "miso_color" => "white",
   "prompt_color" => "light_red",
-  "user_name" => "buddy"
+  "user_name" => "buddy",
+  "wolfram_app_id" => ""
 } of String => String
 
 PREFS_FILE = "~/.miso-buddy.yml"
