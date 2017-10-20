@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 make
 readonly version=`bin/miso --version`
-echo "$(tput setaf 15)Tagging $(tput setaf 9)v${version}$(tput setaf 15)...$(tput sgr0)"
+echo "$(tput bold)Tagging $(tput setaf 1)v${version}$(tput sgr0 && tput bold)...$(tput sgr0)"
 git tag -a "v${version}" -m "Version ${version}" $@ && git push origin "v${version}"

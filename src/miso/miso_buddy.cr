@@ -22,9 +22,13 @@ class MisoBuddy
       input = miso_gets
       next if input.is_a?(Nil)
       controller = @router.find_route(input)
-      miso_puts(controller.message) unless controller.message.is_a?(Nil)
-      controller.action if controller.responds_to?(:action)
+      process(controller)
     end
+  end
+
+  private def process(controller : Controller)
+    miso_puts(controller.message) unless controller.message.is_a?(Nil)
+    controller.action if controller.responds_to?(:action)
   end
 
   private def miso_gets
@@ -45,10 +49,8 @@ class MisoBuddy
     puts("#{@flipped_prompt}#{input}")
   end
 
-  def greet
-    greet_controller1 = Greet1Controller.new(@prefs, "")
-    miso_puts(greet_controller1.message)
-    greet_controller2 = Greet2Controller.new(@prefs, "")
-    miso_puts(greet_controller2.message)
+  private def greet
+    process(Greet1Controller.new(@prefs, ""))
+    process(Greet2Controller.new(@prefs, ""))
   end
 end
