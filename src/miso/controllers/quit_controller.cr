@@ -1,6 +1,6 @@
 require "../mvc/controller"
 
-# Gives Miso a Break
+# Give Miso a break
 class QuitController < Controller
   use_message_view Quit
 

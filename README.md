@@ -1,7 +1,6 @@
 # Miso
 
 Your best bud in the terminal!
-Made with :heart: in [crystal](https://crystal-lang.org/)
 
 ## Installation
 
@@ -58,3 +57,6 @@ As for the actual code, miso uses a sort of mini internal MVC framework from `sr
 ## Contributors
 
 - [fonsecapeter](https://github.com/fonsecapeter) Peter Fonseca - creator, maintainer, all-around cool guy
+
+
+> Made in the best language ever: [crystal](https://crystal-lang.org/)
