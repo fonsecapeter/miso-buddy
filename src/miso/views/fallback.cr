@@ -11,7 +11,7 @@ class FallbackMessageView < MessageView
       "No foolin?",
       "Baba Booey.",
       "You said it.",
-      "Part on.",
+      "Party on.",
       "Hold up, really?",
       "For real, though?",
       "Outa sight.",
