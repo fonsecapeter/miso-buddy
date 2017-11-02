@@ -18,6 +18,7 @@ class MisoBuddy
   end
 
   def run
+    print "\033[?1049h" # open alt screen buf
     greet
     loop do
       input = miso_gets(@prompt, @flipped_prompt)
