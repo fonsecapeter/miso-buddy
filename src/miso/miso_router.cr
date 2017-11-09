@@ -10,6 +10,7 @@ class MisoRouter < Router
       "you feeling"
     ]
     route WolframAlpha, %w[?]
+    route Update, %w[update]
     route Quit, %w[quit exit bye later peace]
   end
 end

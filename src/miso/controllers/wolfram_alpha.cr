@@ -1,6 +1,6 @@
 require "../mvc/controller"
 require "../models/wolfram_alpha_client"
-require "../views/http/*"
+require "../views/errors/*"
 require "../utils/io"
 
 # Ask Miso just about anything!

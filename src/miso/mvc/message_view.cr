@@ -44,6 +44,7 @@ abstract class MessageView
       msg % {
         user_name: generate_user_name,
         explative: generate_explative,
+        Explative: generate_explative.capitalize,
         explativing: generate_explativing,
         explatived: generate_explatived
       }
