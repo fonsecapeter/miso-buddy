@@ -1,10 +1,12 @@
 # Base Message View Class
 abstract class MessageView
   @context : Hash(String, String)
+  @hash_context = {} of String => Hash(String, String)
   def initialize(
     @prefs : Preferences,
     @input : String,
-    @context = {} of String => String
+    @context = {} of String => String,
+    @hash_context = {} of String => Hash(String, String)
   )
     @_messages = [] of String
     collect_messages

@@ -18,12 +18,18 @@ abstract class Controller
   end
 
   def render(
-    view_cls : MessageView.class | Nil = nil,
-    context = {} of String => String
-  ) : String | Nil
+      view_cls : MessageView.class | Nil = nil,
+      context = {} of String => String,
+      hash_context = {} of String => Hash(String, String)
+    ) : String | Nil
     view_cls ||= view_class
     return if view_cls.is_a?(Nil)
-    view = view_cls.new(@prefs, @input, context)
+    view = view_cls.new(
+      @prefs,
+      @input,
+      context,
+      hash_context
+    )
     msg = view.message
     return if msg.is_a?(Nil)
     miso_puts(msg, @prefs.colors["miso_color"])

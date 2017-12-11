@@ -1,15 +1,16 @@
 require "../controllers/**"
 require "./route"
 
-macro route(name, matchers)
-  add_route({{name}}Controller, {{matchers}})
+macro route(name, matchers, description)
+  add_route({{name}}Controller, {{matchers}}, {{description}})
 end
 
 # Route input based in dynamic matchers
 abstract class Router
+  getter :_routes
   def initialize(@prefs : Preferences)
     @_routes = [] of Route
-    add_route(FallbackController, [] of String)
+    add_route(FallbackController, [] of String, "For when nothing else matches.")
     routes
   end
 
@@ -19,8 +20,12 @@ abstract class Router
   end
 
   # Add new route
-  def add_route(controller_class : Controller.class, matchers : Array(String))
-    @_routes << Route.new(controller_class, matchers)
+  def add_route(
+      controller_class : Controller.class,
+      matchers : Array(String),
+      description : String
+    )
+    @_routes << Route.new(controller_class, matchers, description)
   end
 
   # Get correct route
